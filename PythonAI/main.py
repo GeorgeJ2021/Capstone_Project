@@ -1,23 +1,36 @@
 import win32com.client
 import speech_recognition as sr
 
-speaker = win32com.client.Dispatch("SAPI.SpVoice")
-def takeCommand():
-    print("take command started")
-    r = sr.Recognizer()
-    mic = sr.Microphone(device_index=2)
-    with mic as source:
-        r.pause_threshold = 1
-        audio = r.listen(source)
-        query = r.recognize_google(audio, language="en-in")
-        print("User said: ", {query})
-        return query
+recognizer = sr.Recognizer()
+microphone = sr.Microphone()
 
-speaker.Speak("Hello world. I am Ballenheimer")
+speaker = win32com.client.Dispatch("SAPI.SpVoice")
+def listen(recognizer, microphone):
+    while True:
+        try:
+            with microphone as source:
+                print("Listening...")
+                recognizer.adjust_for_ambient_noise(source)
+                recognizer.dynamic_energy_threshold = 3000
+                audio = recognizer.listen(source, timeout=5.0)
+                response = recognizer.recognize_google(audio, language="en-in")
+                print(response)
+
+                return response
+        except sr.WaitTimeoutError:
+            pass
+        except sr.UnknownValueError:
+            pass
+        except sr.RequestError:
+            print("Network Error.")
+
+
+
 #print(sr.Microphone.list_microphone_names())
-while 1:
-    print("Listening...")
-    text = takeCommand()
-    speaker.Speak(text)
+speaker.Speak("Hello world. I am Ballenheimer")
+while True:
+    Response = listen(recognizer, microphone)
+    speaker.Speak(Response)
+
 
 
