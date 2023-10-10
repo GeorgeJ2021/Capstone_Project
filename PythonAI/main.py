@@ -1,3 +1,5 @@
+import webbrowser
+
 import win32com.client
 import speech_recognition as sr
 
@@ -27,10 +29,17 @@ def listen(recognizer, microphone):
 
 
 #print(sr.Microphone.list_microphone_names())
+print("Hello world. I am Ballenheimer")
 speaker.Speak("Hello world. I am Ballenheimer")
 while True:
     Response = listen(recognizer, microphone)
-    speaker.Speak(Response)
+    if "Open YouTube".lower() in Response.lower():
+        speaker.Speak("Opening YouTube")
+        print("Opening YouTube")
+        webbrowser.open("https://www.youtube.com/")
+
+    else:
+        speaker.Speak(Response)
 
 
 
