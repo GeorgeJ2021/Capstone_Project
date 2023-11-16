@@ -3,17 +3,22 @@ import openai
 from config import apikey
 
 openai.api_key = apikey
-
 response = openai.ChatCompletion.create(
   model="gpt-3.5-turbo",
   messages=[
     {
       "role": "system",
-      "content": "explain photosynthesis"
+      "content": "Write an email to dean\n"
     },
     {
       "role": "user",
       "content": ""
+    },
+    {
+      "role": "assistant"
+    },
+    {
+      "role": "user"
     }
   ],
   temperature=1,

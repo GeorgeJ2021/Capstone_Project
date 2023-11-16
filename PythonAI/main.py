@@ -29,8 +29,8 @@ def listen(recognizer, microphone):
 
 
 #print(sr.Microphone.list_microphone_names())
-print("Hello world. I am Ballenheimer")
-speaker.Speak("Hello world. I am Ballenheimer")
+print("Hello world. I am your virtual pet")
+speaker.Speak("Hello world. I am your virtual pet")
 while True:
     Response = listen(recognizer, microphone)
     if "Open YouTube".lower() in Response.lower():
