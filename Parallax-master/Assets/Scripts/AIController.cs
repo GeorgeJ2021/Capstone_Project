@@ -13,6 +13,7 @@ public class AIController : MonoBehaviour
     public TMP_Text textField;
     public TMP_InputField inputField;
     public Button okButton;
+    public elevenlabs sound;
 
     private OpenAIAPI api;
     private List<ChatMessage> messages;
@@ -37,7 +38,7 @@ public class AIController : MonoBehaviour
         textField.text = startString;
         Debug.Log(startString);
     }
-
+    
     private async void GetResponse()
     {
         if (inputField.text.Length < 1)
@@ -88,9 +89,20 @@ public class AIController : MonoBehaviour
 
         // Update the text field with the response
         textField.text = string.Format("You: {0}\n\nGuard: {1}", userMessage.Content, responseMessage.Content);
+        sound.text = responseMessage.Content;
+        sound.Start();
+        //DisplayResponse(responseMessage.Content);
 
         // Re-enable the OK button
         okButton.enabled = true;
     }
 }
+
+   /* public void DisplayResponse(string str)
+    {
+        public string respon = str;
+        Debug.Log(respon);
+    }*/
+
+
 
