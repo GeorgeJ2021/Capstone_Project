@@ -79,15 +79,16 @@ public class FaceDetect : MonoBehaviour
         WebCamDevice[] cam_devices = WebCamTexture.devices;
         
         foreach (var device in cam_devices) {
-            if (device.isFrontFacing)
-            {
-                Device = device;
-                break;
-            }
-            else
-            {
-                Device = cam_devices[0];
-            }
+            // if (device.isFrontFacing)
+            // {
+            //     Device = device;
+            //     break;
+            // }
+            // else
+            // {
+            //     Device = cam_devices[0];
+            // }
+            Device = cam_devices[1];
         }
         //create camera texture
         webcamTexture = new WebCamTexture(Device.name, 480, 640, 30);

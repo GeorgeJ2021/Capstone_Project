@@ -1,0 +1,25 @@
+	
+	Jettelly Simple UI Blur (1.1)
+	Created and distributed by Jettelly.
+	Using Unity 2022.2.0f1
+
+	-------------------------
+
+	License: (Creative Commons Zero, CC0)
+	http://creativecommons.org/publicdomain/zero/1.0/
+
+	-------------------------
+
+	* This content has been created for educational purposes. 
+	* You can use it in personal, educational and commercial projects.
+
+	* To make it works, Opaque Texture property should be enabled in the Render Pipeline Asset.
+	* It's recomended to configure Opaque Downsampling to 4x Box.
+
+	-------------------------
+
+	Home: 		https://www.jettelly.com/
+	Twitter:	https://twitter.com/jettelly
+	Youtube:	https://www.youtube.com/@Jettelly
+
+	
