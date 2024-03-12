@@ -57,7 +57,8 @@ public class FaceDetect : MonoBehaviour
     private GameObject img;
     public GameObject chat;
     public Vector2 eyeShift;
-    private Vector3 pov;
+    public Vector2 converterEye;
+    public Vector3 pov;
     List<string> labels = new List<string>() { "Angry", "Disgusted", "Fearful", "Happy", "Neutral", "Sad", "Surprised" };
     
     //intterpolation
@@ -91,7 +92,7 @@ public class FaceDetect : MonoBehaviour
             Device = cam_devices[1];
         }
         //create camera texture
-        webcamTexture = new WebCamTexture(Device.name, 480, 640, 30);
+        webcamTexture = new WebCamTexture(Device.name, 640, 360, 30); //480 width 
         //start camera
         webcamTexture.Play();
         //rotate RawImage according to rotation of webcamtexture
@@ -178,10 +179,12 @@ public class FaceDetect : MonoBehaviour
         
         // Find the screen width and height
         float screenWidth = GetComponent<AsymFrustum>().width;
-        float screenHeight = GetComponent<AsymFrustum>().width;
+        float screenHeight = GetComponent<AsymFrustum>().height;
 
+        converterEye = new Vector2((eyes.X / 640f), -((eyes.Y / (360))));
         // Convert left eye position to camera position
-        pov = new Vector3(((eyes.X / 640f) - 0.5f) * screenWidth, -((eyes.Y / (480-120.0f)) - 0.5f) * screenHeight, transform.position.z);
+        pov = new Vector3(((eyes.X / 640f) - 0.5f) * screenWidth, -((eyes.Y / (360-60.0f)) - 0.5f) * screenHeight, transform.position.z);
+        
         //transform.position = pov;
 
         if (transform.position != pov)
