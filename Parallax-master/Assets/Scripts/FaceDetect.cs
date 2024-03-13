@@ -183,7 +183,7 @@ public class FaceDetect : MonoBehaviour
 
         converterEye = new Vector2((eyes.X / 640f), -((eyes.Y / (360))));
         // Convert left eye position to camera position
-        pov = new Vector3(((eyes.X / 640f) - 0.5f) * screenWidth, -((eyes.Y / (360-60.0f)) - 0.5f) * screenHeight, transform.position.z);
+        pov = new Vector3(((eyes.X / 640f) - 0.5f) * screenWidth, -((eyes.Y / (360-120.0f)) - 0.5f) * screenHeight, transform.position.z);
         
         //transform.position = pov;
 
