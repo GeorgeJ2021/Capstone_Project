@@ -155,6 +155,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.DefaultCompany.ColorLevelBuilder
+    Standalone: com.ReflexByte.Virtual-Pet
   buildNumber:
     Standalone: 0
     VisionOS: 0
