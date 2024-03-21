@@ -79,7 +79,7 @@ public class FaceDetect : MonoBehaviour
         img = FindObjectOfType<RawImage>().gameObject;
         WebCamDevice[] cam_devices = WebCamTexture.devices;
         
-        foreach (var device in cam_devices) {
+        /* foreach (var device in cam_devices) {
             // if (device.isFrontFacing)
             // {
             //     Device = device;
@@ -90,7 +90,7 @@ public class FaceDetect : MonoBehaviour
             //     Device = cam_devices[0];
             // }
             Device = cam_devices[1];
-        }
+        } */
         //create camera texture
         webcamTexture = new WebCamTexture(Device.name, 640, 360, 30); //480 width 
         //start camera

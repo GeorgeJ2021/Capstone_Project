@@ -1648,7 +1648,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0569a6c04c483374a9e7caa590b77cc6, type: 2}
+      objectReference: {fileID: 2100000, guid: fe6ebee2c63ac1c489788eadc33d32a6, type: 2}
     - target: {fileID: 919132149155446097, guid: 7de05f6e8cb6d2c459bfbd8be3a89010,
         type: 3}
       propertyPath: m_Name
@@ -1698,7 +1698,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0569a6c04c483374a9e7caa590b77cc6, type: 2}
+      objectReference: {fileID: 2100000, guid: fe6ebee2c63ac1c489788eadc33d32a6, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -6766,6 +6766,12 @@ MonoBehaviour:
   colorMenu: {fileID: 2141724435}
   chHead: {fileID: 1629597700}
   chBody: {fileID: 726183935}
+  red: {fileID: 2100000, guid: fe6ebee2c63ac1c489788eadc33d32a6, type: 2}
+  blue: {fileID: 2100000, guid: fc53d3499d32bc0428da108729ee30fa, type: 2}
+  yellow: {fileID: 2100000, guid: f8237840781afc540babedb3c0728065, type: 2}
+  green: {fileID: 2100000, guid: 75b51e0197ee8ba4ca734774438da1ed, type: 2}
+  purple: {fileID: 2100000, guid: 296e0b2346f17fc44b96ddb54f847ff5, type: 2}
+  orange: {fileID: 2100000, guid: 37b54b338a3c5304b947ae09fa8cf6bf, type: 2}
 --- !u!1 &2141724435
 GameObject:
   m_ObjectHideFlags: 0
@@ -6783,7 +6789,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2141724436
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6807,7 +6813,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 767, y: -61}
+  m_AnchoredPosition: {x: -738, y: 462}
   m_SizeDelta: {x: -1172.34, y: -514.45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2141724437
