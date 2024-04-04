@@ -19,7 +19,8 @@ public class SpeechRecognition : MonoBehaviour
     private bool recording;
     
     public UdpSocket udpSocket;
-
+    
+    public Renderer charRenderer;
 
 
 

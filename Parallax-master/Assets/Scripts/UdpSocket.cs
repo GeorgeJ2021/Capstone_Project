@@ -27,8 +27,11 @@ public class UdpSocket : MonoBehaviour
     [SerializeField] string IP = "127.0.0.1"; // local host
     [SerializeField] int rxPort = 8000; // port to receive data from Python on
     [SerializeField] int txPort = 8001; // port to send data to Python on
+    public Renderer charRenderer;
+    public Texture2D[] textures;
 
-    int i = 0; // DELETE THIS: Added to show sending data from Unity to Python via UDP
+    public int textureFlag = 0;
+     // DELETE THIS: Added to show sending data from Unity to Python via UDP
 
     // Create necessary UdpClient objects
     UdpClient client;
@@ -89,6 +92,24 @@ public class UdpSocket : MonoBehaviour
                 byte[] data = client.Receive(ref anyIP);
                 string text = Encoding.UTF8.GetString(data);
                 print(">> " + text);
+                switch (text)
+                {
+                    case "Positive":
+                    case "Extremely Positive":
+                        textureFlag = 1;
+                        Debug.Log("changed to happy");
+                        break;
+                    case "Negative":
+                    case "Extremely Negative":
+                        textureFlag = 2;
+                        Debug.Log("changed to sad");
+                        break;
+                    default:
+                        textureFlag = 0;//charRenderer.material.mainTexture = textures[2];
+                        Debug.Log("changed to sad");
+                        break;
+                }
+                
                 ProcessInput(text);
             }
             catch (Exception err)

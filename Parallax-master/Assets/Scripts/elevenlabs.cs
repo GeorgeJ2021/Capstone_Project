@@ -28,7 +28,7 @@ public class elevenlabs : MonoBehaviour
    public ElevenLabsConfig config;
    public AudioSource audioSource;
    public string text;
- 
+   public CharTextureLoader charTextureLoader;
 
     public void Start()
     {
@@ -75,6 +75,7 @@ public class elevenlabs : MonoBehaviour
         {
             audioSource.clip = audioClip; 
             PlayAudio(audioClip);
+            charTextureLoader.talking = 1;
         // Wait for the audio clip to finish playing
         yield return new WaitForSeconds(audioClip.length * 0.1f);
         }
@@ -84,11 +85,12 @@ public class elevenlabs : MonoBehaviour
         yield return StartCoroutine(GenerateAndStreamAudio(text));
     }
 
-
+        
         // Wait for the audio clip to finish playing
         yield return new WaitForSeconds(audioClip.length);
     
 }
+    charTextureLoader.talking = 0;
 
 }
 
