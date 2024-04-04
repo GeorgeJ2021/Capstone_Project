@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.IO;
 using HuggingFace.API;
+
 
 public class SpeechRecognition : MonoBehaviour
 {
@@ -15,6 +17,11 @@ public class SpeechRecognition : MonoBehaviour
     private AudioClip clip;
     private byte[] bytes;
     private bool recording;
+    
+    public UdpSocket udpSocket;
+
+
+
 
     //record Microphone input and encode it in WAV format
     private void Start() {
@@ -28,6 +35,8 @@ public class SpeechRecognition : MonoBehaviour
             StopRecording();
         }
     }
+
+    
 
     private void StartRecording() {
         //text.color = Color.white;
@@ -62,6 +71,7 @@ public class SpeechRecognition : MonoBehaviour
             //text.color = Color.white;
             Inputtext.text = response;
             Debug.Log(response);
+            udpSocket.SendData(response);
             startButton.interactable = true;
         }, error => {
             //Inputtext.text.color = Color.red;

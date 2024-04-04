@@ -10,6 +10,15 @@
       },
       "hash": "822d2a2626dd1f89f7cf67a3fd87c8f3d0393fa1"
     },
+    "com.huggingface.sharp-transformers": {
+      "version": "https://github.com/huggingface/sharp-transformers.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.2.1"
+      },
+      "hash": "577bfe23c286a605f58d328ea991aa4d4d06f4c8"
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
