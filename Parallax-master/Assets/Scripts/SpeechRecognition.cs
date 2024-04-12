@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.IO;
+using System.Linq;
 using HuggingFace.API;
 
 
@@ -16,10 +17,10 @@ public class SpeechRecognition : MonoBehaviour
 
     private AudioClip clip;
     private byte[] bytes;
-    private bool recording;
+    public bool recording;
     
     public UdpSocket udpSocket;
-    
+    public FaceDetect faceDetect;
     public Renderer charRenderer;
 
 
@@ -58,7 +59,7 @@ public class SpeechRecognition : MonoBehaviour
         recording = false;
         SendRecording();
         Debug.Log("stopped recording");
-
+        
         //Un-comment the next line of code and a test.wav file should be saved in Unity Assets folder with the recorded audio.
         //File.WriteAllBytes(Application.dataPath + "/test.wav", bytes);
         
@@ -70,9 +71,19 @@ public class SpeechRecognition : MonoBehaviour
         stopButton.interactable = false;
         HuggingFaceAPI.AutomaticSpeechRecognition(bytes, response => {
             //text.color = Color.white;
-            Inputtext.text = response;
             Debug.Log(response);
             udpSocket.SendData(response);
+            while (udpSocket.text == null) ;
+            string maxEmotion = "Neutral";
+            var maxCount = faceDetect.histogram.Values.Max();
+
+            if (faceDetect.histogram.Count(kv => kv.Value == maxCount) == 1)
+            {
+                maxEmotion = faceDetect.histogram.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
+            }
+            Debug.Log("histogram max: " + maxEmotion);
+            Inputtext.text = response+";"+udpSocket.text+","+maxEmotion;
+            faceDetect.ClearHistogramValues();
             startButton.interactable = true;
         }, error => {
             //Inputtext.text.color = Color.red;

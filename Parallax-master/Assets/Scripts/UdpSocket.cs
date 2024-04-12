@@ -29,7 +29,7 @@ public class UdpSocket : MonoBehaviour
     [SerializeField] int txPort = 8001; // port to send data to Python on
     public Renderer charRenderer;
     public Texture2D[] textures;
-
+    public string text;
     public int textureFlag = 0;
      // DELETE THIS: Added to show sending data from Unity to Python via UDP
 
@@ -50,6 +50,7 @@ public class UdpSocket : MonoBehaviour
 
     public void SendData(string message) // Use to send data to Python
     {
+        text = null;
         try
         {
             byte[] data = Encoding.UTF8.GetBytes(message);
@@ -90,7 +91,7 @@ public class UdpSocket : MonoBehaviour
             {
                 IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, 0);
                 byte[] data = client.Receive(ref anyIP);
-                string text = Encoding.UTF8.GetString(data);
+                text = Encoding.UTF8.GetString(data);
                 print(">> " + text);
                 switch (text)
                 {
