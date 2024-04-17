@@ -163,7 +163,7 @@ MonoBehaviour:
   eyeShift: {x: 3, y: 4}
   converterEye: {x: 0, y: 0}
   pov: {x: 0, y: 0, z: 0}
-  moveSpeed: 0
+  moveSpeed: 1
 --- !u!114 &12450277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6114,7 +6114,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -287.1941, y: -327}
+  m_AnchoredPosition: {x: 123, y: -409}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1645077880
@@ -6165,8 +6165,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 43.59
-  m_fontSizeBase: 43.59
+  m_fontSize: 22.72
+  m_fontSizeBase: 22.72
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6201,7 +6201,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 74.05027, y: 0, z: -572.31, w: -102.56708}
+  m_margin: {x: 74.05027, y: 0, z: -517.8343, w: -102.56708}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

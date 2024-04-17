@@ -82,7 +82,26 @@ public class SpeechRecognition : MonoBehaviour
                 maxEmotion = faceDetect.histogram.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
             }
             Debug.Log("histogram max: " + maxEmotion);
-            Inputtext.text = response+";"+udpSocket.text+","+maxEmotion;
+            string emotion = "";
+            switch (udpSocket.text)
+            {
+                case "Extremely Positive":
+                    emotion = "Extremely Happy";
+                    break;
+                case "Positive":
+                    emotion = "Happy";
+                    break;
+                case "Neutral":
+                    emotion = "Neutral";
+                    break;
+                case "Negative":
+                    emotion = "Sad";
+                    break;
+                case "Extremely Negative":
+                    emotion = "Extremely Sad";
+                    break;
+            }
+            Inputtext.text = response+";"+emotion+","+maxEmotion;
             faceDetect.ClearHistogramValues();
             startButton.interactable = true;
         }, error => {
