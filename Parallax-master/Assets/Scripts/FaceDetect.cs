@@ -26,7 +26,8 @@ public class FaceDetect : MonoBehaviour
     private Model _runtimeModel;
     private IWorker _engine;
     private Texture2D bTexture2D;
-    
+    public SpeechRecognition speechRecognition;
+
     [Serializable]
     public struct  Prediction
     {
@@ -37,7 +38,7 @@ public class FaceDetect : MonoBehaviour
         {
             predicted = t.AsFloats();
             predictedValue = Array.IndexOf(predicted, predicted.Max());
-            Debug.Log($"Predicted {predictedValue}");
+            //Debug.Log($"Predicted {predictedValue}");
             
         }
     }
@@ -59,7 +60,7 @@ public class FaceDetect : MonoBehaviour
     public Vector2 eyeShift;
     public Vector2 converterEye;
     public Vector3 pov;
-    List<string> labels = new List<string>() { "Angry", "Disgusted", "Fearful", "Happy", "Neutral", "Sad", "Surprised" };
+    List<string> labels = new List<string>() { "Angry", "Disgusted", "Fearful", "Happy", "Neutral", "Sad", "Surprised", "null" };
     
     //intterpolation
     public float moveSpeed;
@@ -67,6 +68,18 @@ public class FaceDetect : MonoBehaviour
     private Transform target;
     private float sinTime;
     WebCamDevice Device;
+    private string[] emotions;
+    public Dictionary<string, int> histogram;
+
+    
+   public void ClearHistogramValues()
+    {
+        List<string> keys = new List<string>(histogram.Keys);
+        foreach (string key in keys)
+        {
+            histogram[key] = 0;
+        }
+    }
     
     // Start is called before the first frame update
     void Start()
@@ -79,7 +92,7 @@ public class FaceDetect : MonoBehaviour
         img = FindObjectOfType<RawImage>().gameObject;
         WebCamDevice[] cam_devices = WebCamTexture.devices;
         
-        /* foreach (var device in cam_devices) {
+         foreach (var device in cam_devices) {
             // if (device.isFrontFacing)
             // {
             //     Device = device;
@@ -90,7 +103,7 @@ public class FaceDetect : MonoBehaviour
             //     Device = cam_devices[0];
             // }
             Device = cam_devices[1];
-        } */
+        } 
         //create camera texture
         webcamTexture = new WebCamTexture(Device.name, 640, 360, 30); //480 width 
         //start camera
@@ -119,6 +132,17 @@ public class FaceDetect : MonoBehaviour
         }
 
         target = this.transform;
+        
+        
+        // Define the seven emotions
+        emotions = new string[] { "Angry", "Disgusted", "Fearful", "Happy", "Neutral", "Sad", "Surprised" };
+
+        // Initialize a dictionary to store the histogram
+        histogram = new Dictionary<string, int>();
+        foreach (string emotion in emotions)
+        {
+            histogram[emotion] = 0;
+        }
 
     }
 
@@ -126,6 +150,14 @@ public class FaceDetect : MonoBehaviour
     void Update()
     {
         DetectFace();
+        // Track the emotion
+        string currentEmotion = labels[prediction.predictedValue];/* some operation to get the current emotion */;
+    
+        // Update the histogram
+        if (histogram.ContainsKey(currentEmotion))
+        {
+            histogram[currentEmotion]++;
+        }
     }
 
     public void DetectFace()
@@ -138,6 +170,8 @@ public class FaceDetect : MonoBehaviour
         if (rects.Length == 0)
         {
             img.GetComponent<RawImage>().texture = webcamTexture;
+            prediction.predictedValue = 7;
+            chat.GetComponent<TextMeshProUGUI>().text = "Hey! You are " + labels[prediction.predictedValue];
             return;
         }
         
@@ -169,7 +203,7 @@ public class FaceDetect : MonoBehaviour
         }
         
         
-        Debug.Log(labels[prediction.predictedValue]);
+        //Debug.Log(labels[prediction.predictedValue]);
         chat.GetComponent<TextMeshProUGUI>().text = "Hey! You are " + labels[prediction.predictedValue];
         Imgproc.putText(rgbaMat, labels[prediction.predictedValue], new Point(mainFace.tl().x, mainFace.tl().y), Imgproc.FONT_HERSHEY_SIMPLEX, 1, new Scalar(255, 255, 255), 2, Imgproc.LINE_AA);
         Imgproc.rectangle(rgbaMat, new Point(mainFace.x, mainFace.y), new Point(mainFace.x + mainFace.width, mainFace.y + mainFace.height), new Scalar(0, 255, 0, 255), 2);
