@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb486bf492aee7a42945125e4e714d5c, type: 3}
   m_Name: DeepGramConfig
   m_EditorClassIdentifier: 
-  apiKey: 8b574a200eee0fed235efe288293c40831bd3d54
+  apiKey: 886d58b797e7d02ded9f9b7ffcaefd9d5b6191d7
   voiceURL: https://api.deepgram.com/v1/speak?encoding=linear16
   sttUrl: wss://api.deepgram.com/v1/listen?encoding=linear16

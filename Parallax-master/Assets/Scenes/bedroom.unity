@@ -351,7 +351,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 53581e3b1b31f2d4dafcd896ab3205ee, type: 2}
   text: Hello, how can I help you today?
+  deepgramInstance: {fileID: 798113136}
   charTextureLoader: {fileID: 4284737522615472841}
+  ttsStatus: 0
 --- !u!1 &58260129
 GameObject:
   m_ObjectHideFlags: 0
@@ -2686,8 +2688,10 @@ MonoBehaviour:
   charRenderer: {fileID: 726183936}
   config: {fileID: 11400000, guid: 53581e3b1b31f2d4dafcd896ab3205ee, type: 2}
   udpSocket: {fileID: 4284737522615472840}
+  speechRecognition: {fileID: 1441461762}
   Inputtext: {fileID: 1370200800}
   conversation: 
+  microphoneInstance: {fileID: 888871398}
 --- !u!4 &798113137
 Transform:
   m_ObjectHideFlags: 0
@@ -3256,6 +3260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5324dd637b7c3347bf0b65fe78562f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  recording: 0
   _deepgramInstance: {fileID: 798113136}
 --- !u!82 &888871399
 AudioSource:
@@ -6001,6 +6006,7 @@ MonoBehaviour:
   startButton: {fileID: 94372923}
   stopButton: {fileID: 98852919}
   Inputtext: {fileID: 1370200800}
+  textToSpeech: {fileID: 48708846}
   microphoneInstance: {fileID: 888871398}
   recording: 0
   deepgramInstance: {fileID: 798113136}
@@ -7747,6 +7753,7 @@ MonoBehaviour:
   inputField: {fileID: 1370200800}
   okButton: {fileID: 1656511498}
   sound: {fileID: 48708846}
+  speechRecognition: {fileID: 1441461762}
 --- !u!4 &1997036836
 Transform:
   m_ObjectHideFlags: 0

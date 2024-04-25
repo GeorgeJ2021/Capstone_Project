@@ -14,7 +14,7 @@ public class AIController : MonoBehaviour
     public TMP_InputField inputField;
     public Button okButton;
     public TextToSpeech sound;
-
+    public SpeechRecognition speechRecognition;
     private OpenAIAPI api;
     private List<ChatMessage> messages;
 
@@ -41,6 +41,7 @@ public class AIController : MonoBehaviour
     
     private async void GetResponse()
     {
+        speechRecognition.StopRecording();
         if (inputField.text.Length < 1)
         {
             return;

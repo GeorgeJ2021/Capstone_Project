@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 using UnityEditor;
 using System.Text.RegularExpressions;
@@ -36,10 +37,15 @@ public class DeepgramInstance : MonoBehaviour
     public Renderer charRenderer;
     public ConfigDeepGram config;
     public UdpSocket udpSocket;
+    public SpeechRecognition speechRecognition;
     [SerializeField] private TMP_InputField Inputtext;
     public string conversation;
+    byte[] keepAliveBytes = Encoding.UTF8.GetBytes("{\"type\": \"KeepAlive\"}");
+    public MicrophoneInstance microphoneInstance;
+
     async void Start()
     {
+        
         var headers = new Dictionary<string, string>
         {
             { "Authorization", "Token " + config.apiKey }
@@ -73,50 +79,56 @@ public class DeepgramInstance : MonoBehaviour
             if (deepgramResponse.is_final)
             {
                 var transcript = deepgramResponse.channel.alternatives[0].transcript;
-                if (string.IsNullOrWhiteSpace(transcript)) return;
-                conversation += " " + transcript;
-                Debug.Log(transcript);
-                udpSocket.SendData(conversation);
-                while (udpSocket.text == null) await Task.Yield();
-                string maxEmotion = "Neutral";
-                var maxCount = faceDetect.histogram.Values.Max();
-                Debug.Log(udpSocket.text);
-                if (faceDetect.histogram.Count(kv => kv.Value == maxCount) == 1)
+                if (!string.IsNullOrWhiteSpace(transcript) && microphoneInstance.recording)
                 {
-                    maxEmotion = faceDetect.histogram.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
+                    conversation += " " + transcript;
+                    Debug.Log(transcript);
+                    udpSocket.SendData(conversation);
+                    while (udpSocket.text == null) await Task.Yield();
+                    string maxEmotion = "Neutral";
+                    var maxCount = faceDetect.histogram.Values.Max();
+                    Debug.Log(udpSocket.text);
+                    if (faceDetect.histogram.Count(kv => kv.Value == maxCount) == 1)
+                    {
+                        maxEmotion = faceDetect.histogram.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
+                    }
+
+                    Debug.Log("histogram max: " + maxEmotion);
+                    string emotion = "";
+                    switch (udpSocket.text)
+                    {
+                        case "Extremely Positive":
+                            emotion = "Extremely Happy";
+                            break;
+                        case "Positive":
+                            emotion = "Happy";
+                            break;
+                        case "Neutral":
+                            emotion = "Neutral";
+                            break;
+                        case "Negative":
+                            emotion = "Sad";
+                            break;
+                        case "Extremely Negative":
+                            emotion = "Extremely Sad";
+                            break;
+                    }
+
+                    Inputtext.text = conversation + ";" + emotion + "," + maxEmotion;
+                    faceDetect.ClearHistogramValues();
                 }
-                Debug.Log("histogram max: " + maxEmotion);
-                string emotion = "";
-                switch (udpSocket.text)
-                {
-                    case "Extremely Positive":
-                        emotion = "Extremely Happy";
-                        break;
-                    case "Positive":
-                        emotion = "Happy";
-                        break;
-                    case "Neutral":
-                        emotion = "Neutral";
-                        break;
-                    case "Negative":
-                        emotion = "Sad";
-                        break;
-                    case "Extremely Negative":
-                        emotion = "Extremely Sad";
-                        break;
-                }
-                Inputtext.text = conversation+";"+emotion+","+maxEmotion;
-                faceDetect.ClearHistogramValues();
             }
         };
-
         await websocket.Connect();
+
+       // await websocket.Connect();
     }
-    void Update()
+    async void Update()
     {
     #if !UNITY_WEBGL || UNITY_EDITOR
         websocket.DispatchMessageQueue();
     #endif
+        
     }
 
     private async void OnApplicationQuit()
@@ -126,15 +138,15 @@ public class DeepgramInstance : MonoBehaviour
 
     public async void ProcessAudio(byte[] audio)
     {
+        
         if (websocket.State == WebSocketState.Open)
         {
             await websocket.Send(audio);
         }
-        else
-        {
-            await websocket.Connect();
-            ProcessAudio(audio);
-        }
+        
     }
+    
+
+
 }
 

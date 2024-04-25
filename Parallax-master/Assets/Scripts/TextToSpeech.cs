@@ -9,9 +9,9 @@ public class TextToSpeech : MonoBehaviour
 {
     public ConfigDeepGram config;
     public string text = "Hello, how can I help you today?";
-    
+    public DeepgramInstance deepgramInstance;
     public CharTextureLoader charTextureLoader;
-    
+    public bool ttsStatus;
     public void Start()
     {
         StartCoroutine(SendRequest(text));
@@ -20,6 +20,7 @@ public class TextToSpeech : MonoBehaviour
 
 private IEnumerator SendRequest(string text)
 {
+    ttsStatus = true;
     // Define your JSON object
     string json = "{\"text\": \"" + text + "\"}";
 
@@ -32,11 +33,13 @@ private IEnumerator SendRequest(string text)
     www.SetRequestHeader("Authorization", "token " + config.apiKey);
 
     // Send the request and wait for a response
+    //deepgramInstance.DisconnectSocket();
     yield return www.SendWebRequest();
 
     if (www.result != UnityWebRequest.Result.Success)
     {
         Debug.Log(www.error);
+        ttsStatus = false;
     }
     else
     {
@@ -45,14 +48,19 @@ private IEnumerator SendRequest(string text)
 
         // Convert the audio data to an AudioClip
         AudioClip audioClip = ToAudioClip(audioData);
-
+    
         // Play the audio clip
         AudioSource audioSource = GetComponent<AudioSource>();
         audioSource.clip = audioClip;
         audioSource.Play();
         charTextureLoader.talking = 1;
+        www.Abort();
+        www.Dispose();
+      //  deepgramInstance.ConnectSocket();
         yield return new WaitForSeconds(audioClip.length);
+        
     }
+    ttsStatus = false;
     charTextureLoader.talking = 0;
 }
 

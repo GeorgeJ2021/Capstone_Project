@@ -8,7 +8,7 @@ public class MicrophoneInstance : MonoBehaviour
 {
     AudioSource _audioSource;
     int lastPosition, currentPosition;
-    private bool recording;
+    public bool recording;
     public DeepgramInstance _deepgramInstance;
 
     void Start()
@@ -64,7 +64,7 @@ public class MicrophoneInstance : MonoBehaviour
     public void StopMicrophone()
     {
         recording = false;
-        Microphone.End(null);
+        //Microphone.End(null);
     }
 
     short f32_to_i16(float sample)

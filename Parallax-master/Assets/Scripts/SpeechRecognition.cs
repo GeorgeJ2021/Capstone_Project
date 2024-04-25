@@ -9,28 +9,45 @@ using UnityEngine.UI;
 using TMPro;
 using System.IO;
 using System.Linq;
+using System.Text;
 using UnityEditor;
 
 
 public class SpeechRecognition : MonoBehaviour
 {
-    [SerializeField] private Button startButton;
+    [SerializeField] public Button startButton;
     [SerializeField] private Button stopButton;
     [SerializeField] private TMP_InputField Inputtext;
+    public TextToSpeech textToSpeech;
     public MicrophoneInstance microphoneInstance;
     public bool recording;
     public DeepgramInstance deepgramInstance;
+   
+
+    // Convert the KeepAlive message to a byte array
+    
     // Start is called before the first frame update
     void Start()
     {
         startButton.onClick.AddListener(StartRecording);
         stopButton.onClick.AddListener(StopRecording);
         stopButton.interactable = false;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (textToSpeech.ttsStatus)
+        {
+            startButton.interactable = false;
+            stopButton.interactable = false;
+        }
+        else if(stopButton.interactable.Equals(false))
+        {
+            startButton.interactable = true;
+        }
+
         
     }
     
@@ -43,7 +60,7 @@ public class SpeechRecognition : MonoBehaviour
         recording = true;
     }
     
-    private void StopRecording() {
+    public void StopRecording() {
         microphoneInstance.StopMicrophone();
         Debug.Log("stopped recording");
         deepgramInstance.conversation = null;
