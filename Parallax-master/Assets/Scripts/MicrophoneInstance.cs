@@ -14,6 +14,21 @@ public class MicrophoneInstance : MonoBehaviour
     void Start()
     {
         recording = false;
+        foreach (var device in Microphone.devices)
+        {
+            Debug.Log("Name: " + device);
+        }
+        _audioSource = GetComponent<AudioSource> ();
+        if (Microphone.devices.Length > 0)
+        {
+            _audioSource.clip = Microphone.Start(null, true, 10, AudioSettings.outputSampleRate);
+        }
+        else
+        {
+            Debug.Log("This will crash!");
+        }
+
+        _audioSource.Play();
     }
 
     public void StartMicrophone()

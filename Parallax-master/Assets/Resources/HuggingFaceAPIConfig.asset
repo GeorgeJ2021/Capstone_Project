@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2e4a11424bacd4418fb6c47ff99b12a, type: 3}
   m_Name: HuggingFaceAPIConfig
   m_EditorClassIdentifier: 
-  _apiKey: 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
+  _apiKey: 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
   _useBackupEndpoints: 1
   _waitForModel: 1
-  _maxTimeout: 20
+  _maxTimeout: 3
   _taskEndpoints:
   - taskName: AutomaticSpeechRecognition
     endpoint: https://api-inference.huggingface.co/models/openai/whisper-tiny
@@ -35,5 +35,3 @@ MonoBehaviour:
     endpoint: https://api-inference.huggingface.co/models/runwayml/stable-diffusion-v1-5
   - taskName: Translation
     endpoint: https://api-inference.huggingface.co/models/t5-base
-  - taskName: ZeroShotTextClassification
-    endpoint: https://api-inference.huggingface.co/models/facebook/bart-large-mnli
