@@ -94,7 +94,7 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _xBlur: 0.005096576
+    - _xBlur: 0.005093994
     - _yBlur: 0.00906
     m_Colors:
     - Color_2E7263A3: {r: 1, g: 1, b: 1, a: 0}
