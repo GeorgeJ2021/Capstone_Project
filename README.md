@@ -4,6 +4,12 @@
 
 In today's fast-paced world, mental and emotional well-being are increasingly recognized as critical components of overall health. However, many individuals find it challenging to maintain their mental health amidst the demands of daily life. Our project addresses this need by introducing an emotionally intelligent virtual companion that resembles a cat. This virtual pet is designed to provide users with a comforting and interactive presence. Utilizing face recognition, emotion detection, and speech analysis technologies, the virtual companion can understand and respond to the user's emotional state. By integrating ChatGPT for natural language conversation, DeepGram for text-to-speech and speech-to-text capabilities, and HuggingFace AI for sentiment analysis, we have created a sophisticated system that offers personalized and contextually relevant interactions within Unity Game Engine.
 
+### Project Done By: 
+George Jose Ambooken
+Dyutin Robin
+Nandakishor V
+Praveen K.V
+
 ### Features
 - **ChatGPT Integration:** Open AI provides APIs for integrating ChatGPT into our virtual companion. By integrating ChatGPT, the virtual companion was able to have natural, free following conversations with the users, and can tailor its responses based on the context of our conversation. This personalization helps create a more individualized and user-centric experience, enhancing satisfaction and retention.
 - **Emotion Detection:** Unity provides APIs or third-party plugins/libraries for face detection, such as OpenCV which can be used to identify, and extract faces from the webcam feed. With the help of a pre-trained machine learning model, we can process the captured faces to assign probabilities or scores for each emotion category, which indicates the likelihood of each emotion being expressed in the detected face.
